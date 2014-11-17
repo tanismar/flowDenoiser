@@ -1,0 +1,99 @@
+<application>
+    <name>flowDenoiserAPP</name>
+    <module>
+        <name>flowDenoiser</name>
+        <parameters></parameters>
+        <node>localhost</node>
+        <prefix></prefix>
+        <geometry>(Pos (x 586.00) (y 114.90))</geometry>
+    </module>
+    <module>
+        <name>graphBasedSegmentation</name>
+        <parameters>--x 350 --y 300</parameters>
+        <node>localhost</node>
+        <prefix></prefix>
+        <geometry>(Pos (x 176.00) (y 153.90))</geometry>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--x 350 --y 300</parameters>
+        <node>localhost</node>
+        <prefix>/denoisedCam</prefix>
+        <geometry>(Pos (x 805.00) (y 89.90))</geometry>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--x 0 --y 300</parameters>
+        <node>localhost</node>
+        <prefix>/denoisedIm</prefix>
+        <geometry>(Pos (x 806.00) (y 194.90))</geometry>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--x 0 --y 300</parameters>
+        <node>localhost</node>
+        <prefix>/cam</prefix>
+        <geometry>(Pos (x 443.00) (y 12.90))</geometry>
+    </module>
+    <module>
+        <name>yarpview</name>
+        <parameters>--x 0 --y 300</parameters>
+        <node>localhost</node>
+        <prefix>/procIm</prefix>
+        <geometry>(Pos (x 593.00) (y 259.90))</geometry>
+    </module>
+    <connection>
+        <from external="true">/icub/camcalib/left/out</from>
+        <to>/cam/yarpview/img:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 285.50) (y 66.00)) ((x 148.00) (y 101.00)) ((x 444.00) (y 31.00))  )</geometry>
+    </connection>
+    <connection>
+        <from external="true">/icub/camcalib/left/out</from>
+        <to>/flowDenoiser/imgCam:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 357.00) (y 129.50)) ((x 148.00) (y 101.00)) ((x 587.00) (y 158.00))  )</geometry>
+    </connection>
+    <connection>
+        <from>/GBSeg/viewImg:o</from>
+        <to>/procIm/yarpview/img:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 507.50) (y 231.00)) ((x 442.00) (y 184.00)) ((x 594.00) (y 278.00))  )</geometry>
+    </connection>
+    <connection>
+        <from>/GBSeg/viewImg:o</from>
+        <to>/flowDenoiser/imgProc:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 504.00) (y 183.50)) ((x 442.00) (y 184.00)) ((x 587.00) (y 183.00))  )</geometry>
+    </connection>
+    <connection>
+        <from external="true">/SFM/disp:o</from>
+        <to>/procIm/yarpview/img:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 507.00) (y 278.00)) ((x 441.00) (y 278.00)) ((x 594.00) (y 278.00))  )</geometry>
+    </connection>
+    <connection>
+        <from external="true">/SFM/disp:o</from>
+        <to>/flowDenoiser/imgProc:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 503.50) (y 230.50)) ((x 441.00) (y 278.00)) ((x 587.00) (y 183.00))  )</geometry>
+    </connection>
+    <connection>
+        <from>/flowDenoiser/imgWarpProc:o</from>
+        <to>/denoisedIm/yarpview/img:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 779.00) (y 191.50)) ((x 772.00) (y 170.00)) ((x 807.00) (y 213.00))  )</geometry>
+    </connection>
+    <connection>
+        <from>/flowDenoiser/imgWarpCam:o</from>
+        <to>/denoisedCam/yarpview/img:i</to>
+        <protocol>tcp</protocol>
+        <geometry>(Pos ((x 778.50) (y 126.50)) ((x 772.00) (y 145.00)) ((x 806.00) (y 108.00))  )</geometry>
+    </connection>
+    <connection>
+        <from external="true">/icub/camcalib/left/out</from>
+        <to>/GBSeg/rawImg:i</to>
+        <protocol>udp</protocol>
+        <geometry>(Pos ((x 152.00) (y 136.50)) ((x 148.00) (y 101.00)) ((x 177.00) (y 172.00))  )</geometry>
+    </connection>
+</application>

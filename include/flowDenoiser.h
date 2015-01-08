@@ -16,7 +16,7 @@
  */
 
 /** 
-\defgroup nearBlobber
+\defgroup flowDenoiser
  
 @ingroup icub_module  
  
